@@ -70,10 +70,19 @@ title('January Sea Surface Temperature (^oC)')
 %whether you can modify features of this map such as the contouring
 %interval, color of the contour lines, labels, etc.
 
-%<--
+
+figure(2); clf
+worldmap world
+contourfm(latgrid, longrid, seawaterpCO2(:,:,1)','linecolor','none');
+colorbar
+geoshow('landareas.shp','FaceColor','black')
+title('January Sea Surface Temperature (^oC)')
+
 
 %% 4. Calculate and plot a global map of annual mean pCO2
 %<--
+
+
 
 %% 5. Calculate and plot a global map of the difference between the annual mean seawater and atmosphere pCO2
 %<--
