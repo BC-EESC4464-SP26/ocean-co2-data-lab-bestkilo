@@ -4,9 +4,9 @@ clear;
 % to the overall instructions and questions from the lab assignment sheet.
 
 %% 1. Read in the monthly gridded CO2 data from the .csv file
-% The data file is included in your repository as “LDEO_GriddedCO2_month_flux_2006c.csv”
+% The data file is included in your repository as Â“LDEO_GriddedCO2_month_flux_2006c.csvÂ”
 % Your task is to write code to read this in to MATLAB
-% Hint: you can again use the function “readtable”, and use your first data lab code as an example.
+% Hint: you can again use the function Â“readtableÂ”, and use your first data lab code as an example.
 %<--
 addpath("ocean-co2-data-lab-bestkilo#");
 
@@ -116,7 +116,6 @@ tempEquation2 = aMeanpCO2cake2 .* exp(0.0423*(SST - aMeanSSTcake1));
 
 %BATS= 32degrees 50 N, 64 degrees 10 W
 %Station P= 50degreesN, 145 degrees W
-%Red Sea= 76.5S 
 
 
 %% 8. Reproduce your own versions of the maps in figures 7-9 in Takahashi et al. 2002
