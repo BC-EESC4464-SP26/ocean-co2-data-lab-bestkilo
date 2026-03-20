@@ -114,8 +114,82 @@ tempEquation2 = aMeanpCO2cake2 .* exp(0.0423*(SST - aMeanSSTcake1));
 %Do for BATS, Station P, and Ross Sea (note that Ross Sea is along a
 %section of 14 degrees longitude - I picked the middle point)
 
-%BATS= 32degrees 50 N, 64 degrees 10 W
+%BATS= 32degrees 50 N -> 33 N, 64 degrees 10 W -> 64 W
 %Station P= 50degreesN, 145 degrees W
+%Ross Sea= 76.5S -> 76 S, 14.5 W -> 14 W
+
+%use find command?
+
+BATSSeasonalCycle= NaN (length(monthgrid),4);
+StationPSeasonalCycle= NaN(length(monthgrid),4);
+RossSeasonalCycle= NaN(length(monthgrid),4);
+
+% WE chose 60 for longitude because it was closest
+% to 296 degrees. For latitude, we picked 28 because it was
+% 32 degrees.
+batsSSTgrid = unique(SST(60, 28,:), 'stable');
+batspCO2grid = unique(seawaterpCO2(60,28,:), 'stable');
+batsbiogrid = unique(bioEquation1(60,28,:), 'stable');
+batstempgrid = unique(tempEquation2(60,28,:), 'stable');
+
+BATSSeasonalCycle(:, 1) =  batsSSTgrid;
+BATSSeasonalCycle(:, 2) =  batspCO2grid;
+BATSSeasonalCycle(:, 3) =  batsbiogrid;
+BATSSeasonalCycle(:, 4) =  batstempgrid;
+
+% We chose 44 for longitude because it was closest to
+% 215 degrees. We chose 33 column for latitude because
+% it was closest to 50.
+
+stationpSSTgrid = unique(SST(44,33,:), 'stable');
+stationppCO2grid = unique(seawaterpCO2(44,33,:), 'stable');
+stationpbiogrid = unique(bioEquation1(44,33,:), 'stable');
+stationptempgrid = unique(tempEquation2(44,33,:), 'stable');
+
+StationPSeasonalCycle(:, 1) =  stationpSSTgrid;
+StationPSeasonalCycle(:, 2) =  stationppCO2grid;
+StationPSeasonalCycle(:, 3) =  stationpbiogrid;
+StationPSeasonalCycle(:, 4) =  stationptempgrid;
+
+% We chose 36 for longitude because it was closest to 177
+%We chose 1 becasue for latitude it was closest to -76.5
+rossSSTgrid = unique(SST(37,1,:), 'stable');
+rosspCO2grid = unique(seawaterpCO2(37,1,:), 'stable');
+rossbiogrid = unique(bioEquation1(37,1,:), 'stable');
+rosstempgrid = unique(tempEquation2(37,1,:), 'stable');
+
+RossSeasonalCycle(:, 1) =  rossSSTgrid;
+RossSeasonalCycle(:, 2) =  rosspCO2grid;
+RossSeasonalCycle(:, 3) =  rossbiogrid;
+RossSeasonalCycle(:, 4) =  rosstempgrid;
+
+%%
+figure(5); clf
+subplot(12,4,1)
+plot(RossSeasonalCycle(:,1))
+
+subplot (12,4,2)
+plot(RossSeasonalCycle(:,2))
+
+subplot (12,4,3)
+plot(RossSeasonalCycle(:,3))
+
+subplot (12,4,4)
+plot(RossSeasonalCycle(:,4))
+
+figure(7); clf
+subplot(12,4,1)
+plot(BATSSeasonalCycle(:,1))
+
+subplot (12,4,2)
+plot(StationPSeasonalCycle(:,2))
+
+subplot (12,4,3)
+plot(StationPSeasonalCycle(:,3))
+
+subplot (12,4,4)
+plot(StationPSeasonalCycle(:,4))
+
 
 
 %% 8. Reproduce your own versions of the maps in figures 7-9 in Takahashi et al. 2002
