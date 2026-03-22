@@ -165,36 +165,99 @@ RossSeasonalCycle(:, 4) =  rosstempgrid;
 
 %%
 figure(5); clf
-subplot(12,4,1)
+subplot(4,4,1)
 plot(RossSeasonalCycle(:,1))
+xlabel('Months'), ylabel('Sea Surface Temperature')
+xlim([1 12]), ylim([-2 0.5])
+
+subplot (4,4,2)
+plot(RossSeasonalCycle(:,2))
+xlabel('Months'), ylabel('Seawater pCO2')
+xlim([1 12]), ylim([280 405])
+
+subplot (4,4,3)
+plot(RossSeasonalCycle(:,3))
+xlabel('Months'), ylabel('BioPhysical Effect')
+xlim([1 12]), ylim([266 420])
+
+subplot (4,4,4)
+plot(RossSeasonalCycle(:,4))
+xlabel('Months'), ylabel('Temperature Effect')
+xlim([1 12]), ylim([266 420])
+
+figure(6); clf
+subplot(12,4,1)
+plot(StationPSeasonalCycle(:,1))
+xlabel('Months'), ylabel('Sea Surface Temperature')
+xlim([1 12]), ylim([5 14])
 
 subplot (12,4,2)
-plot(RossSeasonalCycle(:,2))
+plot(StationPSeasonalCycle(:,2))
+xlabel('Months'), ylabel('Seawater pCO2')
+xlim([1 12]), ylim([340 365])
 
 subplot (12,4,3)
-plot(RossSeasonalCycle(:,3))
+plot(StationPSeasonalCycle(:,3))
+xlabel('Months'), ylabel('BioPhysical Effect')
+xlim([1 12]), ylim([266 430])
 
 subplot (12,4,4)
-plot(RossSeasonalCycle(:,4))
+plot(StationPSeasonalCycle(:,4))
+xlabel('Months'), ylabel('Temperature Effect')
+xlim([1 12]), ylim([266 430])
 
 figure(7); clf
 subplot(12,4,1)
 plot(BATSSeasonalCycle(:,1))
+xlabel('Months'), ylabel('Sea Surface Temperature')
+xlim([1 12]), ylim([19 29])
 
 subplot (12,4,2)
-plot(StationPSeasonalCycle(:,2))
+plot(BATSSeasonalCycle(:,2))
+xlabel('Months'), ylabel('Seawater pCO2')
+xlim([1 12]), ylim([319 365])
 
 subplot (12,4,3)
-plot(StationPSeasonalCycle(:,3))
+plot(BATSSeasonalCycle(:,3))
+xlabel('Months'), ylabel('BioPhysical Effect')
+xlim([1 12]), ylim([266 430])
 
 subplot (12,4,4)
-plot(StationPSeasonalCycle(:,4))
-
-
+plot(BATSSeasonalCycle(:,4))
+xlabel('Months'), ylabel('Temperature Effect')
+xlim([1 12]), ylim([266 430])
 
 %% 8. Reproduce your own versions of the maps in figures 7-9 in Takahashi et al. 2002
 % But please use better colormaps!!!
 % Mark on thesese maps the locations of the three stations for which you plotted the
 % seasonal cycle above
+ 
+bioEffect = max(bioEquation1, [], 3) - min(bioEquation1,[], 3);
 
-%<--
+figure(8); clf
+worldmap world
+contourfm(latgrid, longrid, bioEffect(:,:,1)','linecolor','none');
+colorbar
+geoshow('landareas.shp','FaceColor','black')
+title('Seasonal BioPhysical Effect')
+
+TempEffect= max(tempEquation2, [], 3)- min(tempEquation2, [], 3);
+
+figure(9); clf
+worldmap world
+contourfm(latgrid, longrid, TempEffect(:,:,1)','linecolor','none');
+colorbar
+geoshow('landareas.shp','FaceColor','black')
+title('Seasonal Temperature Effect')
+
+
+DifferenceSeasonalEffect= TempEffect-bioEffect;
+figure(10); clf
+worldmap world
+contourfm(latgrid, longrid, DifferenceSeasonalEffect(:,:,1)','linecolor','none');
+scatterm(32,296,36,'r',"filled");
+scatterm(50,215,36,'r',"filled");
+scatterm(-76,177,36,'r',"filled");
+colorbar
+geoshow('landareas.shp','FaceColor','black')
+title('Difference Between Temperature and BioPhysical Effect')
